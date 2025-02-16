@@ -11,6 +11,55 @@ module full_subtractor(input a, b,bin, output  diff, borr);
   or q6(borr,a2,a3,a5);
  
 endmodule
+module full_subtractor(input a, b, bin, output reg diff, borr);
+  always @(*) begin
+    if( a == 0 && b == 0 && bin == 0)begin
+      diff = 0;
+      borr = 1;
+    end
+  else  if( a == 0 && b == 0 && bin == 1)begin
+      diff = 1;
+      borr = 1;
+    end
+  else if( a == 0 && b == 1 && bin == 0)begin
+      diff = 1;
+      borr = 1;
+    end
+    else  if( a == 0 && b == 1 && bin == 1)begin
+      diff = 0;
+      borr = 0;
+    end
+    else if( a == 1 && b == 0 && bin == 0)begin
+      diff = 0;
+      borr = 0;
+    end
+    else if( a == 1 && b == 0 && bin == 1)begin
+      diff = 0;
+      borr = 0;
+    end
+    else if( a == 1 && b == 1 && bin == 0)begin
+      diff = 0;
+      borr = 0;
+    end
+     if( a == 1 && b == 1 && bin == 1)begin
+      diff = 1;
+      borr = 1;
+    end
+    
+end
+endmodule
+
+
+
+
+
+
+
+
+
+
+
+
 
 module full;
   
