@@ -8,6 +8,20 @@ module half_subtractor(input a, b, output diff, borr);
 endmodule
 
 
+module half_subtractor(input a, b, output reg diff, borr);
+  always @(*)begin
+    case({a,b})
+      2'b00: {diff,borr} = 2'b00;
+      2'b01: {diff,borr} = 2'b11;
+      2'b10: {diff,borr} = 2'b10;
+      2'b11: {diff,borr} = 2'b00;
+    endcase
+  end
+ 
+  
+endmodule
+
+
 module half;
   
   reg a,b;
