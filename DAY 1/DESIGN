@@ -7,4 +7,31 @@ module full_adder (
   assign carry = a&b|b&cin|cin&a;
 
 endmodule
+
+
+
+module full;
+  reg a,b,cin;
+  wire sum,carry;
+  full_adder f1(.a(a),.b(b),.cin(cin),.sum(sum),.carry(carry));
+  initial begin
+    
+       a=0;b=0;cin=0;
+    #1 a =0;b=0;cin=1;
+    #1 a= 0;b= 1;cin=0;
+    #1 a= 0;b =1;cin=1;
+    #1 a= 1;b =0;cin=0;
+    #1 a= 1;b =0;cin=1;
+    #1 a= 1;b =1;cin=0;
+    #1 a= 1;b =1;cin=1;
+     #1$finish;
+  end
+  initial begin
+    $dumpfile("sull_adder.vcd");
+    $dumpvars(0,full);
+  end
+  always@(a or b or cin)
+    $display("a = %0b ,b = %0b ,cin = %0b,sum = %0b,carry = %0d",a,b,cin,sum,carry);
+             
+  endmodule
  
