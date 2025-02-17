@@ -1,0 +1,25 @@
+module gtob(input [3:0]g,output [3:0]b);
+  assign b[3]= g[3];
+  assign b[2] = g[3] ^ g[2];
+  assign b[1] = g[3] ^ g[2] ^ g[1];
+  assign b[0] = g[3] ^ g[2] ^ g[1] ^ g[0];
+ 
+endmodule
+
+module btog;
+  reg [3:0] g;
+  wire [3:0] b;
+  
+  gtob b1(.g(g),.b(b));
+  
+  initial begin
+  #1  g= 4'b0000;
+  #1 g =4'b0001;
+ #1 g= 4'b0010;
+    #1g =4'b0011;
+    
+  end
+  always@(b )
+  $display("b = %0b g =%0b ",b,g);
+  
+endmodule
