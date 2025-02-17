@@ -1,0 +1,26 @@
+module b_to_g(input [3:0] b, output [3:0] g);
+  
+  assign g[3] = b[3];
+  assign g[2] = b[3] ^ b[2];
+  assign g[1] = b[2] ^ b[1];
+  assign g[0] = b[1] ^ b[0];
+  
+endmodule
+  
+  module btog;
+  reg [3:0] b;
+  wire [3:0] g;
+  
+  b_to_g b1(.b(b),.g(g));
+  
+  initial begin
+    b= 4'b0000;
+  #1 b =4'b0001;
+    #1 b = 4'b0010;
+    #1b =4'b0011;
+    
+  end
+  always@(b )
+  $display("b = %0b g =%0b ",b,g);
+  
+endmodule
