@@ -13,6 +13,21 @@ module mux(input i0,i1,i2,i3,sel_1,sel_0,output y);
 endmodule
 
 
+module mux(input i0,i1,i2,i3,sel_1,sel_0,output reg y);
+  
+  always @(*) begin
+    case({sel_1,sel_0})
+      2'd0: y = i0;
+      2'd1: y = i1;
+      2'd2: y = i2;
+      2'd3: y = i3;
+      default :$display("select input");
+      
+    endcase
+  end
+endmodule
+
+
 module tb;
   reg i0,i1,i2,i3,sel_1,sel_0;
   wire y;
