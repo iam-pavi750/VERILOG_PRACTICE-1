@@ -1,0 +1,34 @@
+module mux(input i0,i1,sel,output y);
+  
+  wire abar,a,a3;
+  not n1(abar,sel);
+  and a1(a,i1,sel);
+  and a2(a3,i0,abar);
+  or o1(y,a,a3);
+         
+endmodule
+
+module tb;
+  reg i0,i1,sel;
+  wire y;
+  
+  mux m1(.i0(i0),.i1(i1),.sel(sel),.y(y));
+  
+  initial begin
+    $monitor("i0 =%0b i1 = %0b sel = %0b y = %0b",i0,i1,sel,y);
+ 
+    i0 =0;
+     i1 = 1;
+    
+     sel =0;   
+    #10 sel =1;
+    #50 $finish;
+    
+  end
+  initial begin
+    $dumpfile ("mux.vcd");
+    $dumpvars(0,tb);
+  end
+endmodule
+    
+  
