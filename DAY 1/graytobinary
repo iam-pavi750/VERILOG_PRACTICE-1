@@ -6,6 +6,23 @@ module gtob(input [3:0]g,output [3:0]b);
  
 endmodule
 
+
+module gtob(input [3:0]g,output [3:0]b);
+  
+  buf x(b[3],g[3]);
+  xor x1(b[2],g[2],g[3]);
+  xor x2(b[1],g[1],g[2],g[3]);
+  xor x3(b[0],g[0],g[1],g[2],g[3]);
+  
+endmodule
+  
+
+
+
+
+
+
+
 module btog;
   reg [3:0] g;
   wire [3:0] b;
