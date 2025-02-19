@@ -13,6 +13,26 @@ module demux( i,sel,y0,y1,y2,y3);
     endcase
   end 
 endmodule
+
+
+
+module demux( i,sel,y0,y1,y2,y3);
+  input [1:0] sel;
+  input i;
+  output  y0,y1,y2,y3;
+  
+ wire abar,bbar;
+  
+  not n1(abar,sel[0]);
+  not n2(bbar,sel[1]);
+  and a1(y0,abar,bbar);
+  and a2(y1,abar,sel[1]);
+  and a3(y2,sel[0],bbar);
+  and a4(y3,sel[1],sel[0]);
+  
+
+endmodule
+  
   
 module tb;
   reg i;
