@@ -1,0 +1,35 @@
+module decoder(input [2:0] i,input en ,output [7:0] y);
+  
+  assign y = en ? 1<< i:0;
+endmodule
+
+
+  module tb;
+  reg [2:0] i;
+  reg en;
+  wire [7:0] y;
+  
+  decoder dut (.i(i),.en(en),.y(y));
+  
+  initial begin
+    
+    $monitor ("en =%0b i =%0b y = %0b ", en ,i, y);
+    
+    en = 1 ;
+    #1 
+    i = 3'b000; #1;
+    i = 3'b001; #1;
+    i = 3'b010; #1;
+    i = 3'b011; #1;
+    i = 3'b100; #1;
+    i = 3'b101; #1;
+    i = 3'b110; #1;
+    i = 3'b111; #1;
+    
+    en =0 ;
+    
+  end
+  
+  
+    
+endmodule
