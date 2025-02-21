@@ -1,0 +1,49 @@
+module sr_latch(input en,s,r,output reg q);
+  
+  always @(*)begin
+    if (en) begin
+      q <= 0;
+    end
+    else begin
+     
+      case({s,r}) 
+        
+        2'b00: q <= q;
+        2'b01: q <= 0;
+        2'b10: q <= 1;
+        2'b11: q <= 1'bx;
+      
+        endcase
+      end
+        end 
+  
+endmodule
+module tb;
+   
+    reg en,s,r;
+    wire q;
+  
+   sr_latch d1(.en(en),.s(s),.r(r),.q(q));
+  
+   initial begin
+     $monitor ("en =%0b,s =%0b,r = %0b q =%0b",en,s,r,q); 
+     
+        s= 0; r= 0; en =1;
+        s = 0 ;r = 0; en =0;#5;
+        s= 0; r = 1; en = 0;#5;
+        s = 0; r = 1; en = 1;#5;
+        s= 1; r = 0; en= 0;#5;
+        s= 1; r = 0; en = 1;#5;
+        s= 1; r = 1; en = 0;#5;
+        s= 1; r = 1;en = 1;#5;
+        s = 1; r=1; en = 0;#5;
+   end
+  
+   
+ initial begin
+     $dumpfile("sr_latch.vcd");
+     $dumpvars(0,tb);
+   end
+  
+ endmodule
+  
