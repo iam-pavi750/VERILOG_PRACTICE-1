@@ -1,0 +1,52 @@
+module sr_ff(input clk,rst,s,r,output reg q);
+  
+  always @(posedge clk)begin
+    if (rst) begin
+      q <= 0;
+    end
+    else begin
+     
+      case({s,r}) 
+        
+        2'b00: q <= q;
+        2'b01: q <= 0;
+        2'b10: q <= 1;
+        2'b11: q <= 1'bx;
+      
+        endcase
+      end
+        end 
+  
+endmodule
+
+module tb;
+   
+    reg clk,s,r,rst;
+    wire q;
+  
+   sr_ff d1(.clk(clk),.s(s),.r(r),.q(q),.rst(rst));
+  
+   initial begin
+     $monitor ("clk =%0b,s =%0b,r = %0b q =%0b rst=%0b",rst,s,r,clk,q);
+     
+     clk = 0;
+     
+        s= 0; r= 0; rst =1;
+        s = 0 ;r = 0; rst =0;#5;
+        s= 0; r = 1; rst = 0;#5;
+        s = 0; r = 1; rst = 1;#5;
+        s= 1; r = 0; rst = 0;#5;
+        s= 1; r = 0; rst = 1;#5;
+        s= 1; r = 1; rst = 0;#5;
+        s= 1; r = 1;rst = 1;#5;
+        s = 1; r=1; rst = 0;#5;
+   end
+  always #5 clk = ~clk;
+   
+ initial begin
+   $dumpfile("sr_ff.vcd");
+     $dumpvars(0,tb);
+   end
+  
+ endmodule
+  
