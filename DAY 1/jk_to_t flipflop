@@ -1,0 +1,26 @@
+module jk(input clk ,rst,j,k,output  reg q);
+  always@(posedge clk) begin
+    if(rst ) 
+      q<= 0;
+    else 
+      case ({j,k})begin
+        2'b00 : q <= q;
+        2'b01 : q <= 0;
+        2'b10 : q <= 1;
+        2'b11 : q <= ~q;
+        endcase
+        
+      end 
+        end
+        endmodule
+
+        module t(input clk,rst,t,output q);
+          wire j,k;
+          
+          assign  j = t;
+          assign  k = t ;
+          
+          jk uut(.clk(clk),.rst(rst),.j(j),.k(k),.q(q));
+          
+        endmodule
+          
