@@ -1,0 +1,40 @@
+module d_ff(input clk,rst,d,output reg q);
+  
+  always@(posedge clk)
+  if(rst) begin
+    q<=0;
+  end
+  
+ else begin
+   q<=d;
+  
+  end
+endmodule
+
+
+    module tb;
+  reg rst,clk,d;
+  wire q;
+  
+  d_ff d1(.clk(clk),.d(d),.q(q),.rst(rst));
+  
+  initial begin
+    $monitor ("clk =%0b ,rst = %0b,d =%0b,q =%0b",clk,rst,d,q); 
+    clk = 0;
+    d = 0;
+    rst = 0;
+    #60 $finish;
+  end
+  
+  begin
+    always #5clk = ~clk;
+    always #15d = ~d;
+    always #30rst = ~rst;
+  end
+  initial begin
+    $dumpfile("d_ff.vcd");
+    $dumpvars(0,tb);
+  end
+  
+endmodule
+  
