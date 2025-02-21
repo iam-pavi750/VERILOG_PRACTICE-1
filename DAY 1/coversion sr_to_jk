@@ -1,0 +1,53 @@
+module sr(input clk,rst,s,r,output reg q);
+  always@(posedge clk)begin
+    if(rst)
+      q<=0;
+  
+    else begin
+      case({s,r}) 
+        2'b00 : q <= q;
+        2'b01 : q <= 0;
+        2'b10 : q <= 1;
+        2'b11 : q <= 1'bx;
+        endcase
+      end
+  end
+        endmodule
+        
+        module jk(input clk,rst,j,k,output  q);
+          wire s,r;
+          
+          assign s = ~q & j;
+          assign r =  q & k;
+         
+          sr uut(.s(s),.r(r),.clk(clk),.rst(rst),.q(q));
+        endmodule
+
+
+      module jk_ff;
+  reg j,k,clk,rst;
+  wire q;
+  
+  jk ruut(.clk(clk),.j(j),.k(k),.rst(rst),.q(q));
+  
+  initial begin
+    
+    clk = 0;
+    forever #5 clk = ~clk;
+    
+  end
+  
+  initial begin
+    
+    $monitor("clk = %0b rst = %0b j= %0b k=%0b q=%0b ",clk,rst,j,k,q);
+    
+    rst = 1; j= 0; k =0; #10;
+    rst = 0; 
+    j = 0; k = 0; #10;
+    j = 0; k = 1; #10;
+    j = 1; k = 0; #10;
+    j = 1; k = 1; #10;
+    #50 $finish;
+  end
+  
+endmodule
